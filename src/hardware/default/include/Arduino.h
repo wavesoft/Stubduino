@@ -20,15 +20,7 @@
 #ifndef ARDUINO_H
 #define ARDUINO_H
 
-typedef unsigned char byte;
-typedef bool boolean;
-
-const unsigned char LOW = 0;
-const unsigned char HIGH = 1;
-const unsigned char INPUT = 0;
-const unsigned char OUTPUT = 1;
-
-const int LED_BUILTIN = 7;
+#include <emulated/ArduinoTypes.h>
 
 void pinMode(const int pin, const unsigned char mode);
 void digitalWrite(const int pin, const unsigned char value);

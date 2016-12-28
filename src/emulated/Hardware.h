@@ -17,25 +17,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <Arduino.h>
-#include <emulated/Hardware.h>
+#ifndef HARDWARE_H
+#define HARDWARE_H
 
-void pinMode(const int pin, const unsigned char mode)
-{
-  Hardware::layer->hwop(HWOP_CONFIGURATION, mode, pin);
-}
+#include <emulated/HardwareLayer.h>
 
-void digitalWrite(const int pin, const unsigned char value)
-{
-  Hardware::layer->hwop(HWOP_DIGITAL, value, pin);
-}
+class Hardware {
+public:
 
-unsigned char digitalRead(const int pin)
-{
-  return Hardware::layer->hwop(HWOP_DIGITAL, HWA_READ, pin);
-}
+  static HardwareLayer * layer;
 
-void delay(const int ms)
-{
+};
 
-}
+#endif

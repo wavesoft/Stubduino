@@ -18,9 +18,12 @@
  */
 
 #include "util/Platform.h"
+#include "emulated/Hardware.h"
 
 extern void setup();
 extern void loop();
+
+HardwareLayer * Hardware::layer = new HardwareLayer();
 
 // Main loop
 int main(int argc, char ** argv) {

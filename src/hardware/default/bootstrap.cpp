@@ -17,11 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <iostream>
 #include <Arduino.h>
 #include <emulated/VirtualSerial.h>
-using namespace std;
 
-VirtualSerial Serial(cin, cout);
+VirtualSerial Serial(0);
+VirtualSerial Serial2(1);
+VirtualSerial Serial3(2);
+VirtualSerial Serial4(3);
 
 /* Here comes the arduino sketch file */

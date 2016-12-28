@@ -18,9 +18,10 @@
  */
 
 #include "VirtualSerial.h"
+#include "Hardware.h"
 
-VirtualSerial::VirtualSerial(std::istream & ins, std::ostream & outs)
-  : ins(&ins), outs(&outs)
+VirtualSerial::VirtualSerial(byte index)
+  : category(HWOP_SERIAL + index), pending("")
 { }
 
 /**
@@ -29,9 +30,11 @@ VirtualSerial::VirtualSerial(std::istream & ins, std::ostream & outs)
  */
 unsigned char VirtualSerial::available()
 {
-  char c;
-  ins->get(c);
-  pending += c;
+  int ret = Hardware::layer->hwop(category, HWA_PEEK, 0);
+  if (ret >= 0) {
+    pending += (char) Hardware::layer->hwop(category, HWA_READ, 0);
+  }
+
   return pending.length();
 }
 
@@ -39,14 +42,20 @@ unsigned char VirtualSerial::available()
  * Void function
  */
 void VirtualSerial::begin(int baud)
-{ }
+{
+  Hardware::layer->hwop(
+    category, HWA_RESET, baud
+  );
+}
 
 /**
  * Flush out stream
  */
 void VirtualSerial::flush()
 {
-  outs->flush();
+  Hardware::layer->hwop(
+    category, HWA_FLUSH, 0
+  );
 }
 
 /**
@@ -71,5 +80,7 @@ char VirtualSerial::read()
  */
 void VirtualSerial::write(char data)
 {
-  (*outs) << data;
+  Hardware::layer->hwop(
+    category, HWA_WRITE, (unsigned char) data
+  );
 }

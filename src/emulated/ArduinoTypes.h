@@ -17,25 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <Arduino.h>
-#include <emulated/Hardware.h>
+#ifndef ARDUINO_TYPES
+#define ARDUINO_TYPES
 
-void pinMode(const int pin, const unsigned char mode)
-{
-  Hardware::layer->hwop(HWOP_CONFIGURATION, mode, pin);
-}
+typedef unsigned char byte;
+typedef bool boolean;
 
-void digitalWrite(const int pin, const unsigned char value)
-{
-  Hardware::layer->hwop(HWOP_DIGITAL, value, pin);
-}
+const unsigned char LOW = 0;
+const unsigned char HIGH = 1;
+const unsigned char INPUT = 0;
+const unsigned char OUTPUT = 1;
 
-unsigned char digitalRead(const int pin)
-{
-  return Hardware::layer->hwop(HWOP_DIGITAL, HWA_READ, pin);
-}
+const int LED_BUILTIN = 7;
 
-void delay(const int ms)
-{
-
-}
+#endif

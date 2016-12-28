@@ -20,6 +20,8 @@
 #ifndef VIRTUALSERIAL_H
 #define VIRTUALSERIAL_H
 
+#include <emulated/ArduinoTypes.h>
+
 #include <ostream>
 #include <istream>
 #include <iostream>
@@ -28,7 +30,7 @@
 class VirtualSerial {
 public:
 
-  VirtualSerial(std::istream & ins, std::ostream & outs);
+  VirtualSerial(byte index);
 
   unsigned char available();
   void begin(int baud);
@@ -37,8 +39,7 @@ public:
   void write(char data);
 
 private:
-  std::istream * ins;
-  std::ostream * outs;
+  byte category;
   std::string pending;
 
 };

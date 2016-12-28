@@ -17,25 +17,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <Arduino.h>
-#include <emulated/Hardware.h>
+#include "HardwareLayer.h"
+#include <iostream>
+using namespace std;
 
-void pinMode(const int pin, const unsigned char mode)
+/**
+ * Perform a hardware operation
+ */
+int HardwareLayer::hwop(const byte operation, const byte action, int value)
 {
-  Hardware::layer->hwop(HWOP_CONFIGURATION, mode, pin);
-}
-
-void digitalWrite(const int pin, const unsigned char value)
-{
-  Hardware::layer->hwop(HWOP_DIGITAL, value, pin);
-}
-
-unsigned char digitalRead(const int pin)
-{
-  return Hardware::layer->hwop(HWOP_DIGITAL, HWA_READ, pin);
-}
-
-void delay(const int ms)
-{
-
+  cout << "hwop(" << (int) operation << ", "
+                  << (int) action << ", "
+                  << value
+       << ") = 0\n";
+  return 0;
 }
